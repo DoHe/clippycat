@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Character
+
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D2
 @onready var idle_action_timer: Timer = %IdleActionTimer
 
@@ -28,14 +30,14 @@ const CLICK_ACTION_LIKELIHOODS: Dictionary[String, float] = {
 func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	idle_action_timer.start(randf_range(idle_action_interval_min, idle_action_interval_max))
+	Events.character_action_triggered.connect(_on_character_action_triggered)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("action"):
+	if event.is_action_pressed("action_alt"):
 		var idx := Random.RNG.rand_weighted(CLICK_ACTION_LIKELIHOODS.values())
 		var click_animation = CLICK_ACTION_LIKELIHOODS.keys()[idx]
 		animated_sprite.play(click_animation)
-		return
 
 
 func _on_animation_finished() -> void:
@@ -49,3 +51,8 @@ func _on_idle_action_timer_timeout() -> void:
 	var idle_action_animation = IDLE_ACTION_LIKELIHOODS.keys()[idx]
 	animated_sprite.play(idle_action_animation)
 	idle_action_timer.start(randf_range(idle_action_interval_min, idle_action_interval_max))
+
+
+func _on_character_action_triggered(action: String) -> void:
+	if action == "dance":
+		animated_sprite.play("jumping2")

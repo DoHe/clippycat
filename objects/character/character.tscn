@@ -541,8 +541,10 @@ autoplay = "idle"
 unique_name_in_owner = true
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_f6lkx")
-animation = &"pounce"
+animation = &"jumping2"
 autoplay = "sleeping"
+frame = 7
+frame_progress = 1.0
 
 [node name="IdleActionTimer" type="Timer" parent="."]
 unique_name_in_owner = true
