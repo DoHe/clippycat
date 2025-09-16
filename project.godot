@@ -20,7 +20,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Config="*res://globals/config.gd"
 Events="*res://globals/events.gd"
+History="*res://globals/history.gd"
 
 [display]
 
