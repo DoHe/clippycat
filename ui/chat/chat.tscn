@@ -1,23 +1,65 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx0olfta7r5ok"]
+[gd_scene load_steps=15 format=3 uid="uid://cx0olfta7r5ok"]
 
-[ext_resource type="Texture2D" uid="uid://btyd7ro8n1yyf" path="res://assets/conversation_filled.png" id="1_bvtqp"]
 [ext_resource type="Script" uid="uid://3ngel31ad6we" path="res://ui/chat/chat.gd" id="1_ww7tl"]
+[ext_resource type="Texture2D" uid="uid://c1oawil1acjf2" path="res://assets/bubble/Vector 6 alt.png" id="2_jw78y"]
 [ext_resource type="FontFile" uid="uid://c8eub6cn1fjfv" path="res://assets/fonts/roboto/Roboto_SemiCondensed-Regular.ttf" id="2_ww7tl"]
+[ext_resource type="Texture2D" uid="uid://dl33t2g4gglxq" path="res://assets/bubble/Union.png" id="3_6hmly"]
 [ext_resource type="FontFile" uid="uid://bohcrusxpau1d" path="res://assets/fonts/roboto/Roboto_SemiCondensed-Italic.ttf" id="3_uto1s"]
 [ext_resource type="FontFile" uid="uid://jr5ca07sx8ss" path="res://assets/fonts/roboto/Roboto_SemiCondensed-Bold.ttf" id="4_jw78y"]
 [ext_resource type="FontFile" uid="uid://bbxfwh5dqktsn" path="res://assets/fonts/roboto/Roboto_SemiCondensed-BoldItalic.ttf" id="5_uto1s"]
+[ext_resource type="Texture2D" uid="uid://dsfalnooocq5t" path="res://assets/icons/commit.png" id="8_8j1y0"]
+[ext_resource type="Texture2D" uid="uid://cdto6gfydcqxr" path="res://assets/icons/commit_disabled.png" id="9_6hmly"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
 content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.775063, 0.775064, 0.775063, 0.521569)
-border_width_left = 1
+bg_color = Color(0.7764706, 0.7764706, 0.7764706, 0.09019608)
 border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jw78y"]
+bg_color = Color(0.7764706, 0.7764706, 0.7764706, 0.7019608)
+border_width_top = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_6hmly"]
+resource_name = "fade_in"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_k5fu7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4khs"]
+_data = {
+&"RESET": SubResource("Animation_k5fu7"),
+&"fade_in": SubResource("Animation_6hmly")
+}
 
 [node name="Chat" type="MarginContainer"]
 custom_minimum_size = Vector2(500, 500)
@@ -36,37 +78,62 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 2
-texture = ExtResource("1_bvtqp")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="NinePatchRect3" type="NinePatchRect" parent="MarginContainer/MarginContainer2"]
+visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 80
+texture = ExtResource("2_jw78y")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/margin_right = 5
 
-[node name="Output" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="SpeechBubble" type="NinePatchRect" parent="MarginContainer/MarginContainer3"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 100)
+modulate = Color(0.88235295, 0.9764706, 0.6901961, 1)
+layout_mode = 2
+texture = ExtResource("3_6hmly")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer3/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="Output" type="RichTextLabel" parent="MarginContainer/MarginContainer3/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 150)
 layout_mode = 2
 focus_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.7607843, 0.32941177, 0.09803922, 1)
 theme_override_fonts/normal_font = ExtResource("2_ww7tl")
-theme_override_fonts/italics_font = ExtResource("3_uto1s")
-theme_override_fonts/bold_italics_font = ExtResource("5_uto1s")
 theme_override_fonts/bold_font = ExtResource("4_jw78y")
-theme_override_font_sizes/bold_italics_font_size = 10
-theme_override_font_sizes/italics_font_size = 10
-theme_override_font_sizes/mono_font_size = 10
-theme_override_font_sizes/normal_font_size = 10
-theme_override_font_sizes/bold_font_size = 10
+theme_override_fonts/bold_italics_font = ExtResource("5_uto1s")
+theme_override_fonts/italics_font = ExtResource("3_uto1s")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
-text = "This is what I am saying 
+text = "This is what I am saying in a very long line so we see how this overflows
 
 [i]and there is even more [/i]
 
@@ -77,19 +144,48 @@ scroll_following = true
 tab_size = 2
 selection_enabled = true
 
-[node name="Input" type="TextEdit" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="TextEdit" parent="MarginContainer/MarginContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-theme_override_colors/current_line_color = Color(0, 0, 0, 0.160784)
+size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 0.717647)
+theme_override_colors/font_placeholder_color = Color(0.39215687, 0.39215687, 0.39215687, 0.7921569)
+theme_override_colors/current_line_color = Color(0, 0, 0, 0.160784)
 theme_override_constants/caret_width = 5
 theme_override_fonts/font = ExtResource("2_ww7tl")
 theme_override_font_sizes/font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxFlat_85g3d")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_jw78y")
 text = "this is an example prompt"
+placeholder_text = "Your question..."
 wrap_mode = 1
 caret_blink = true
 
-[connection signal="gui_input" from="MarginContainer/MarginContainer/VBoxContainer/Input" to="." method="_on_input_gui_input"]
+[node name="CommitButton" type="TextureButton" parent="MarginContainer/MarginContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("8_8j1y0")
+texture_pressed = ExtResource("8_8j1y0")
+texture_hover = ExtResource("8_8j1y0")
+texture_disabled = ExtResource("9_6hmly")
+texture_focused = ExtResource("8_8j1y0")
+
+[node name="WaitingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_a4khs")
+}
+
+[connection signal="gui_input" from="MarginContainer/MarginContainer3/MarginContainer/VBoxContainer/HBoxContainer/Input" to="." method="_on_input_gui_input"]
+[connection signal="pressed" from="MarginContainer/MarginContainer3/MarginContainer/VBoxContainer/HBoxContainer/CommitButton" to="." method="_on_commit_button_pressed"]
+[connection signal="timeout" from="WaitingTimer" to="." method="_on_waiting_timer_timeout"]

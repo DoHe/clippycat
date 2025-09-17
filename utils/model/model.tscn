@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvfif08affpgo"]
+[gd_scene load_steps=3 format=3 uid="uid://dvfif08affpgo"]
 
 [ext_resource type="Script" uid="uid://d2fhi6j3bi551" path="res://utils/model/model.gd" id="1_nqb5u"]
+[ext_resource type="PackedScene" uid="uid://b2qe5xvm2wssj" path="res://utils/tools/tools.tscn" id="2_dq7jo"]
 
 [node name="Model" type="Node"]
 script = ExtResource("1_nqb5u")
+system_prompt = null
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="Tools" parent="." instance=ExtResource("2_dq7jo")]
 unique_name_in_owner = true
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

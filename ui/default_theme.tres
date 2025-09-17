@@ -1,0 +1,47 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bhqyty1smp557"]
+
+[ext_resource type="StyleBox" uid="uid://bri2s2b75l3ip" path="res://ui/settings/settings_button.tres" id="1_vos2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5r0yv"]
+bg_color = Color(0.7607843, 0.32941177, 0.09803922, 1)
+border_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4llc"]
+bg_color = Color(0.7607843, 0.32941177, 0.09803922, 1)
+border_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vos2p"]
+bg_color = Color(0.7607843, 0.32941177, 0.09803922, 0.6901961)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 12
+Button/styles/focus = SubResource("StyleBoxFlat_5r0yv")
+Button/styles/hover = SubResource("StyleBoxFlat_i4llc")
+Button/styles/normal = ExtResource("1_vos2p")
+Button/styles/pressed = SubResource("StyleBoxFlat_vos2p")

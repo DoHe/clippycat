@@ -1,0 +1,172 @@
+[gd_scene load_steps=10 format=3 uid="uid://csfll6ofk60qo"]
+
+[ext_resource type="StyleBox" uid="uid://dl63lw1cfixss" path="res://ui/settings/panel.tres" id="1_jwxja"]
+[ext_resource type="Script" uid="uid://1dc3qcevl3fs" path="res://ui/settings/settings_menu.gd" id="2_id1gn"]
+[ext_resource type="LabelSettings" uid="uid://dvbnvkigo7yj2" path="res://ui/settings/settings_label.tres" id="2_xqw42"]
+[ext_resource type="FontFile" uid="uid://bmqfnk0jfu7ke" path="res://assets/fonts/Inter/Inter_18pt-Medium.ttf" id="3_id1gn"]
+[ext_resource type="StyleBox" uid="uid://d0fwwic4bdiy" path="res://ui/settings/settings_input.tres" id="4_fjvxm"]
+[ext_resource type="FontFile" uid="uid://vbydsuvu1st8" path="res://assets/fonts/Inter/Inter_18pt-Regular.ttf" id="5_bntry"]
+
+[sub_resource type="Animation" id="Animation_fjvxm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_id1gn"]
+resource_name = "fade_in"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bntry"]
+_data = {
+&"RESET": SubResource("Animation_fjvxm"),
+&"fade_in": SubResource("Animation_id1gn")
+}
+
+[node name="SettingsMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 180)
+offset_right = 300.0
+offset_bottom = 180.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("1_jwxja")
+script = ExtResource("2_id1gn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "OpenAI Key:"
+label_settings = ExtResource("2_xqw42")
+
+[node name="OpenAIKey" type="LineEdit" parent="MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_colors/font_placeholder_color = Color(0.101960786, 0.101960786, 0.101960786, 0.74509805)
+theme_override_fonts/font = ExtResource("3_id1gn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_fjvxm")
+placeholder_text = "Your Key Here"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Serper Key:"
+label_settings = ExtResource("2_xqw42")
+
+[node name="SerperKey" type="LineEdit" parent="MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_colors/font_placeholder_color = Color(0.101960786, 0.101960786, 0.101960786, 0.74509805)
+theme_override_fonts/font = ExtResource("3_id1gn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_fjvxm")
+placeholder_text = "Your Key Here"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Model:"
+label_settings = ExtResource("2_xqw42")
+
+[node name="Model" type="OptionButton" parent="MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("5_bntry")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_fjvxm")
+selected = 0
+item_count = 4
+popup/item_0/text = "gpt-4.1-mini"
+popup/item_0/id = 0
+popup/item_1/text = "gpt-4.1"
+popup/item_1/id = 1
+popup/item_2/text = "gpt-5-mini"
+popup/item_2/id = 2
+popup/item_3/text = "gpt5"
+popup/item_3/id = 3
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Color:"
+label_settings = ExtResource("2_xqw42")
+
+[node name="Color" type="OptionButton" parent="MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("5_bntry")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_fjvxm")
+selected = 0
+item_count = 2
+popup/item_0/text = "spring forest"
+popup/item_0/id = 0
+popup/item_1/text = "autmun leaf"
+popup/item_1/id = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_bntry")
+theme_override_font_sizes/font_size = 12
+text = "Save"
+
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_bntry")
+theme_override_font_sizes/font_size = 12
+text = "Cancel"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_bntry")
+}
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
