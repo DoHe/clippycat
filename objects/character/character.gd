@@ -6,7 +6,7 @@ class_name Character
 @onready var idle_action_timer: Timer = %IdleActionTimer
 @onready var hover_timer: Timer = %HoverTimer
 @onready var settings_button: TextureButton = %SettingsButton
-@onready var settings_animation_player: AnimationPlayer = %SettingsAnimationPlayer
+@onready var settings_fader: Fader = %SettingsFader
 
 @export var idle_action_interval_min: float = 5.0
 @export var idle_action_interval_max: float = 10.0
@@ -38,17 +38,17 @@ func _ready() -> void:
 	Events.character_action_triggered.connect(_on_character_action_triggered)
 	Events.text_sent.connect(_on_text_sent)
 	Events.message_generated.connect(_on_message_generated)
+	Events.show_settings.connect(_on_show_settings)
+	Events.hide_settings.connect(_on_hide_settings)
 
 
 func _process(_delta: float) -> void:
 	if is_under_mouse and not settings_button.visible and hover_timer.is_stopped():
 		hover_timer.start()
-	if not is_under_mouse and settings_button.visible and not settings_animation_player.is_playing():
+	if not is_under_mouse and settings_button.visible and not settings_fader.fading:
 		hover_timer.stop()
-		settings_animation_player.play_backwards("fade_in")
-		await settings_animation_player.animation_finished
+		await settings_fader.fade_out()
 		settings_button.visible = false
-		settings_button.disabled = true
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -106,9 +106,8 @@ func _on_hover_area_mouse_exited() -> void:
 
 
 func _on_hover_timer_timeout() -> void:
-	settings_button.disabled = false
 	settings_button.visible = true
-	settings_animation_player.play("fade_in")
+	settings_fader.fade_in()
 
 
 func _on_settings_button_mouse_entered() -> void:
@@ -121,3 +120,11 @@ func _on_settings_button_mouse_exited() -> void:
 
 func _on_settings_button_pressed() -> void:
 	Events.show_settings.emit()
+
+
+func _on_show_settings() -> void:
+	settings_button.disabled = true
+
+
+func _on_hide_settings() -> void:
+	settings_button.disabled = false

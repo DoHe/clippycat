@@ -54,6 +54,10 @@ func _ready() -> void:
 
 func _get_system_prompt() -> String:
 	var context := "\nThe current date and time is %s." % Time.get_datetime_string_from_system()
+	if Config.user_name != "":
+		context += "\nThe user's name is %s." % Config.user_name
+	if Config.user_location != "":
+		context += "\nThe user is located in %s." % Config.user_location
 	return system_prompt + context
 
 
@@ -67,6 +71,12 @@ func _do_http_request(body: String) -> void:
 
 
 func prompt(_prompt_text: String) -> void:
+	if Config.openai_api_key == "":
+		Events.message_generated.emit("""Hey 👋 It looks like you haven't set up your [b]OpenAI API key[/b] yet.
+If you hover over my [i]lovely[/i] self, you will see a little cog wheel ⚙️ show up.
+Click it and enter your key there.
+Talk to you soon 💖""")
+		return
 	var body = _body_for_prompt()
 	_do_http_request(body)
 

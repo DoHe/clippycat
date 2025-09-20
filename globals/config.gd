@@ -4,6 +4,9 @@ var openai_api_key: String = ""
 var openai_model: String = "gpt-4.1"
 var serper_api_key: String = ""
 var color_scheme: String = "spring forest"
+var user_name: String = ""
+var user_location: String = ""
+
 
 func _ready() -> void:
 	var config = ConfigFile.new()
@@ -24,6 +27,8 @@ func _ready() -> void:
 
 
 	color_scheme = config.get_value("ui", "color_scheme", color_scheme)
+	user_name = config.get_value("user", "name", user_name)
+	user_location = config.get_value("user", "location", user_location)
 
 
 func save() -> void:
@@ -32,6 +37,8 @@ func save() -> void:
 	config.set_value("openai", "model", openai_model)
 	config.set_value("serper", "api_key", serper_api_key)
 	config.set_value("ui", "color_scheme", color_scheme)
+	config.set_value("user", "name", user_name)
+	config.set_value("user", "location", user_location)
 	var err = config.save("user://config.cfg")
 	if err != OK:
 		push_error("Failed to save config file: %s" % err)

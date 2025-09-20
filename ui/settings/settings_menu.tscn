@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://csfll6ofk60qo"]
+[gd_scene load_steps=8 format=3 uid="uid://csfll6ofk60qo"]
 
 [ext_resource type="StyleBox" uid="uid://dl63lw1cfixss" path="res://ui/settings/panel.tres" id="1_jwxja"]
 [ext_resource type="Script" uid="uid://1dc3qcevl3fs" path="res://ui/settings/settings_menu.gd" id="2_id1gn"]
@@ -6,43 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bmqfnk0jfu7ke" path="res://assets/fonts/Inter/Inter_18pt-Medium.ttf" id="3_id1gn"]
 [ext_resource type="StyleBox" uid="uid://d0fwwic4bdiy" path="res://ui/settings/settings_input.tres" id="4_fjvxm"]
 [ext_resource type="FontFile" uid="uid://vbydsuvu1st8" path="res://assets/fonts/Inter/Inter_18pt-Regular.ttf" id="5_bntry"]
-
-[sub_resource type="Animation" id="Animation_fjvxm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_id1gn"]
-resource_name = "fade_in"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bntry"]
-_data = {
-&"RESET": SubResource("Animation_fjvxm"),
-&"fade_in": SubResource("Animation_id1gn")
-}
+[ext_resource type="PackedScene" uid="uid://cnf715osyu1b6" path="res://utils/fader/fader.tscn" id="7_fjvxm"]
 
 [node name="SettingsMenu" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 180)
@@ -145,6 +109,38 @@ popup/item_0/id = 0
 popup/item_1/text = "autmun leaf"
 popup/item_1/id = 1
 
+[node name="Label5" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Your Name:"
+label_settings = ExtResource("2_xqw42")
+
+[node name="Name" type="LineEdit" parent="MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_colors/font_placeholder_color = Color(0.101960786, 0.101960786, 0.101960786, 0.74509805)
+theme_override_fonts/font = ExtResource("3_id1gn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_fjvxm")
+placeholder_text = "Your Name Here"
+
+[node name="Label6" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Your Location:"
+label_settings = ExtResource("2_xqw42")
+
+[node name="Location" type="LineEdit" parent="MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_colors/font_placeholder_color = Color(0.101960786, 0.101960786, 0.101960786, 0.74509805)
+theme_override_fonts/font = ExtResource("3_id1gn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_fjvxm")
+placeholder_text = "City, Country"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -162,11 +158,10 @@ theme_override_fonts/font = ExtResource("5_bntry")
 theme_override_font_sizes/font_size = 12
 text = "Cancel"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Fader" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_fjvxm")]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_bntry")
-}
+target = NodePath("..")
+duration = 0.3
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

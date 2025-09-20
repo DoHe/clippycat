@@ -6,11 +6,12 @@ extends Container
 @onready var output: RichTextLabel = %Output
 @onready var waiting_timer: Timer = %WaitingTimer
 @onready var commit_button: TextureButton = %CommitButton
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var fader: Fader = %Fader
 @onready var speech_bubble: NinePatchRect = %SpeechBubble
 
 var is_waiting: bool = false
 var num_waiting_dots: int = 0
+
 
 func _ready() -> void:
 	input.text = ""
@@ -21,13 +22,11 @@ func _ready() -> void:
 
 func fade_in() -> void:
 	speech_bubble.modulate = Color("#e1f9b0") if Config.color_scheme == "spring forest" else Color("#FCDBCC")
-	animation_player.play("fade_in")
-	await animation_player.animation_finished
+	await fader.fade_in()
 
 
 func fade_out() -> void:
-	animation_player.play_backwards("fade_in")
-	await animation_player.animation_finished
+	await fader.fade_out()
 	History.message_history.clear()
 	output.text = ""
 	input.text = ""
